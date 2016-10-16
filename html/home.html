@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Cooking</title>
+
+	<link href="../css/style.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+	<div id="slide1">
+
+		<div class="slide_inside">
+
+			<figure>
+				<img src="../images/cooking.jpg" alt="cooking" />
+			</figure>
+
+		</div> <!--.slide_inside-->
+
+	</div> <!--#slide1-->
+
+
+	<div id="slide2">
+
+		<div class="slide_inside">
+
+			<h2>Do you like cooking?</h2>
+
+			<p>Manger!!!</p>
+
+		</div> <!--.slide_inside-->
+
+	</div> <!--#slide2-->
+
+
+	<div id="slide3">
+
+		<div class="slide_inside">
+
+			<h2>Crédits</h2>
+
+				<ul>
+					<li>Test</li>
+				</ul>
+
+		</div> <!--.slide_inside-->
+
+	</div> <!--#slide3-->
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.parallax-1.1.js"></script>
+
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+
+			$('#slide1').parallax("center", 0, 0.1, true);
+			$('#slide2').parallax("center", 900, 0.1, true);
+			$('#slide3').parallax("center", 2900, 0.1, true);
+		})
+	</script>
+
+</body>
+</html>
