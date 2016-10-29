@@ -7,6 +7,11 @@ body {
 
 }
 
+.pricing td {
+    padding: 5px;
+    text-align: left;
+}
+
 /* clearfix */
 .grid:after {
   content: '';
@@ -49,7 +54,7 @@ body {
 
 
 .pin .pin-user {
-	max-height:30px;
+	max-height:25px;
 	width:auto;
 	height:auto;
 }
