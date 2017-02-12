@@ -18,15 +18,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    $(function(){
-      $('.grid').masonry({
-        // options
-        itemSelector : '.pin',
-        columnWidth : '.pin-sizer',
-        gutter: '.pin-gutter-sizer',
-        percentPosition: true,
-      });
-    });
+
   }
 
 }
