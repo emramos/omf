@@ -1,3 +1,3 @@
-npm install \n
+npm install
 npm start
 
