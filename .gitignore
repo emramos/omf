@@ -1,3 +1,6 @@
+.tscache
+**/.baseDir.ts
 frontend/dist/*
+backend/dist/*
 **/.DS_Store
 node_modules
