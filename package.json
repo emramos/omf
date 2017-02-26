@@ -4,13 +4,11 @@
   "scripts": {
     "start": "npm run cleandist && npm run moveassets && tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "lite": "lite-server",
-    "postinstall": "typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "typings": "typings",
-    "cleandist": "rm -rf client/dist/*",
-    "watchassets": "onchange 'client/app/**/*.css' 'client/app/**/*.html' -e 'client/dist/*' -v -- rsync -a --include='*.css' --include='*.html' --include='*/' --exclude='*' --delete ./client/app/ ./client/dist/",
-    "moveassets": "rsync -a --include='*.css' --include='*.html' --include='*/' --exclude='*' ./client/app/ ./client/dist/"
+    "cleandist": "rm -rf frontend/dist/*",
+    "watchassets": "onchange 'frontend/app/**/*.css' 'frontend/app/**/*.html' -e 'frontend/dist/*' -v -- rsync -a --include='*.css' --include='*.html' --include='*/' --exclude='*' --delete ./frontend/app/ ./frontend/dist/",
+    "moveassets": "rsync -a --include='*.css' --include='*.html' --include='*/' --exclude='*' ./frontend/app/ ./frontend/dist/"
   },
   "licenses": [
     {}
@@ -28,6 +26,7 @@
     "angular-in-memory-web-api": "~0.1.5",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "express": "^4.14.1",
     "jquery": "^1.12.4",
     "jquery-parallax": "^1.0.0",
     "masonry-layout": "^4.1",

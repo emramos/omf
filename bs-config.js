@@ -1,6 +1,6 @@
 module.exports = {
   "port": 8123,
-  "server": { "baseDir":  "./client",
+  "server": { "baseDir":  "./frontend",
    "routes" : { "/node_modules" : "./node_modules"}
  }
 
