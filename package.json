@@ -8,9 +8,9 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "typings": "typings",
-    "cleandist": "rm -rf dist/*",
-    "watchassets": "onchange 'app/**/*.css' 'app/**/*.html' -e 'dist/*' -v -- rsync -a --include='*.css' --include='*.html' --include='*/' --exclude='*' --delete ./app/ ./dist/",
-    "moveassets": "rsync -a --include='*.css' --include='*.html' --include='*/' --exclude='*' ./app/ ./dist/"
+    "cleandist": "rm -rf client/dist/*",
+    "watchassets": "onchange 'client/app/**/*.css' 'client/app/**/*.html' -e 'client/dist/*' -v -- rsync -a --include='*.css' --include='*.html' --include='*/' --exclude='*' --delete ./client/app/ ./client/dist/",
+    "moveassets": "rsync -a --include='*.css' --include='*.html' --include='*/' --exclude='*' ./client/app/ ./client/dist/"
   },
   "licenses": [
     {}
