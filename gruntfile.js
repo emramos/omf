@@ -63,18 +63,25 @@ module.exports = function(grunt) {
     watch: {
       ts: {
         files: ["./frontend/app/**/*.ts", "./backend/src/**/*.ts"],
-        tasks: ["ts"]
+        tasks: ["ts", "reload"]
       },
       views: {
         files: ["./frontend/app/**/*.html", "frontend/app/**/*.css"],
         tasks: ["copy"]
       }
+    },
+    reload: {
+    port: 8553,
+    proxy: {
+        host: 'localhost'
     }
+},
   });
 
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-ts");
+  grunt.loadNpmTasks('grunt-reload');
 
   grunt.registerTask("default", [
     "copy",
