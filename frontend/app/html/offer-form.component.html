@@ -1,7 +1,7 @@
 
 <div class="container">
     <h1>New Offer</h1>
-    <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+    <form (ngSubmit)="onSubmit()" #offerForm="ngForm">
       <div class="form-group">
         <label for="title">Title</label>
         <input type="text" class="form-control required" id="title"
@@ -21,6 +21,6 @@
         [(ngModel)]="model.description" name="description"
         >
       </div>
-      <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
+      <button type="submit" class="btn btn-success" [disabled]="!offerForm.form.valid">Submit</button>
     </form>
 </div>

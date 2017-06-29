@@ -31,6 +31,9 @@ export class OfferRoute extends BaseRoute {
       new OfferRoute().show(req, res, next, model);
     });
 
+    router.post('/offer', (req: Request, res: Response, next: NextFunction) => {
+      new OfferRoute().create(req, res, next, model);
+    });
 
   }
 
@@ -84,6 +87,27 @@ export class OfferRoute extends BaseRoute {
      res.send(offer);
     });
   }
+
+
+    /**
+     * @class OfferRoute
+     * @method create
+     * @param req {Request} The express Request object.
+     * @param res {Response} The express Response object.
+     * @next {NextFunction} Execute the next method.
+     */
+    public create(req: Request, res: Response, next: NextFunction, model: IModel) {
+
+      model.offer.create(req.body, function(err, offer) {
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+       console.log(offer);
+
+       res.json(offer);
+      });
+    }
 
 
 }
