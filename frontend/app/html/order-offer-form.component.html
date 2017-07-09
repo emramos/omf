@@ -1,0 +1,20 @@
+
+<div class="container">
+    <h1>Ordering Offer</h1>
+    <form (ngSubmit)="onSubmit()" #offerForm="ngForm">
+      <div class="form-group">
+        Showing product details for product: {{id}}
+
+      </div>
+
+      <div class="caption">
+        <h3>{{ offer?.title }}</h3>
+        <p>{{ offer?.description}}</p>
+        <p>{{ offer?.price }}</p>
+      </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="!offerForm.form.valid">
+        Submit
+      </button>
+    </form>
+</div>

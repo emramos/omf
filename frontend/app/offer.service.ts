@@ -27,6 +27,15 @@ export class OfferService {
                .catch(this.handleError);
   }
 
+
+  getOffer(id: String): Promise<Offer> {
+    return this.http.get(this.offerUrl+"/"+id)
+               .toPromise()
+               .then(response => response.json() as Offer)
+               .catch(this.handleError);
+  }
+
+
   save(offer: Offer): Promise<any> {
 
     console.log(offer);

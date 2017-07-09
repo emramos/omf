@@ -11,6 +11,7 @@ import { AppRoutingModule }     from './app-routing.module';
 import { AppComponent }   from './app.component';
 import { DashboardComponent }     from './dashboard.component';
 import { OfferFormComponent }     from './offer-form.component';
+import { OrderOfferFormComponent }     from './order-offer-form.component';
 
 import './rxjs-extensions';
 
@@ -21,7 +22,7 @@ import './rxjs-extensions';
     HttpModule,
     AppRoutingModule
   ],
-  declarations: [ AppComponent, DashboardComponent, OfferFormComponent ],
+  declarations: [ AppComponent, DashboardComponent, OfferFormComponent, OrderOfferFormComponent ],
   providers: [
     //HeroService
   ],
