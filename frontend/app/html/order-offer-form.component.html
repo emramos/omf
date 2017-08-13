@@ -1,20 +1,26 @@
 
 <div class="container">
-    <h1>Ordering Offer</h1>
+    <h1>Place your order</h1>
     <form (ngSubmit)="onSubmit()" #offerForm="ngForm">
-      <div class="form-group">
-        Showing product details for product: {{id}}
 
+
+      <div class="caption">
+        <h2>You are ordering</h2>
+        <h3>{{ orderItem.offer?.title }}</h3>
+        <p>{{ orderItem.offer?.description}}</p>
+        <p>{{ orderItem.offer?.price }}</p>
+        <p>Quantity: <input type="number" [(ngModel)]="orderItem.quantity" name="quantity" min="1" required/> </p>
+        <p>Total price: {{ orderItem.totalPrice }}</p>
       </div>
 
       <div class="caption">
-        <h3>{{ offer?.title }}</h3>
-        <p>{{ offer?.description}}</p>
-        <p>{{ offer?.price }}</p>
+        <h2>Shipping address</h2>
+
       </div>
 
+
       <button type="submit" class="btn btn-success" [disabled]="!offerForm.form.valid">
-        Submit
+        Order
       </button>
     </form>
 </div>

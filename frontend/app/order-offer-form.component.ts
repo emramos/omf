@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { Offer } from './interfaces/offer'
+import { OrderItem, DeliverAddress, Order } from './interfaces/order'
 import { OfferService } from './offer.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   moduleId: module.id,
   selector: 'orderoffer',
   templateUrl: 'html/order-offer-form.component.html',
   styleUrls: [ 'css/order-offer-form.component.css' ],
-  providers: [OfferService],
-
+  providers: [OfferService]
 })
 
 
@@ -17,9 +18,10 @@ export class OrderOfferFormComponent {
 
   constructor(private offerService: OfferService, private route: ActivatedRoute, private router: Router) { }
 
-  id: String;
-  offer: Offer;
   private sub: any;
+
+  offerId: String;
+  orderItem: OrderItem;
 
   submitted = false;
 
@@ -30,9 +32,9 @@ export class OrderOfferFormComponent {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.id = params['id']; // (+) converts string 'id' to a number
-      this.offerService.getOffer(this.id).then(offer => this.offer = offer);
-      console.log("Test");
+      this.offerId = params['id'];
+      this.offerService.getOffer(this.offerId).then(offer => this.orderItem.offer = offer);
+      this.orderItem.quantity = 32;
     });
 
   }
@@ -42,7 +44,7 @@ export class OrderOfferFormComponent {
   }
 
   // TODO: Remove this when we're done
-  get diagnostic() { return JSON.stringify(this.offer); }
+  get diagnostic() { return JSON.stringify(this.orderItem); }
 
 
 
