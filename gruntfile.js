@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         },
       ],
         options: {
-          "target": "es5",
+          "target": "es6",
           "module": "commonjs",
           "moduleResolution": "node",
           "sourceMap": true,
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
         }
       ],
         options: {
-          "target": "es5",
+          "target": "es6",
           "module": "commonjs",
           "moduleResolution": "node",
           "sourceMap": true,
