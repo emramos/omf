@@ -6,14 +6,12 @@ import { IModel } from "../models/model"; //import IModel
 
 
 /**
- * / route
  *
- * @class User
+ * @class OfferRoute
  */
 export class OfferRoute extends BaseRoute {
 
   /**
-   * Create the routes.
    *
    * @class OfferRoute
    * @method create
