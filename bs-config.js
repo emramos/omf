@@ -2,7 +2,7 @@
 const proxy = require('http-proxy-middleware');
 
 
-var apiProxy = proxy('/api/*', {
+var apiProxy = proxy('/api', {
   target: 'http://localhost:8523',
   "secure": false,
   verbose: true,

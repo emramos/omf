@@ -7,6 +7,8 @@ import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
 import mongoose = require("mongoose"); //import mongoose
 
+var csrf = require('csurf');
+var cors = require('cors');
 
 //routes
 import { OfferRoute } from "./routes/offer";
@@ -65,6 +67,8 @@ export class Server {
 
     //add api
     this.api();
+
+
   }
 
   /**
@@ -93,16 +97,11 @@ export class Server {
     //use logger middlware
     this.app.use(logger("dev"));
 
-    //use json form parser middlware
-    this.app.use(bodyParser.json());
 
-    //use query string parser middlware
-    this.app.use(bodyParser.urlencoded({
-      extended: true
-    }));
+
 
     //use cookie parker middleware middlware
-    this.app.use(cookieParser("SECRET_GOES_HERE"));
+    //this.app.use(cookieParser("SECRET_GOES_HERE"));
 
     //use override middlware
     this.app.use(methodOverride());
@@ -158,10 +157,44 @@ export class Server {
     let router: express.Router;
     router = express.Router();
 
-    //OfferRoute
-    OfferRoute.create(router, this.model);
+    //use query string parser middlware
+    this.app.use(bodyParser.urlencoded({
+      extended: false
+    }));
+
+    //use json form parser middlware
+    this.app.use(bodyParser.json());
+
+    const cookieOptions = {
+      key: 'XSRF-TOKEN',
+      secure: false,
+      httpOnly: false,
+      maxAge: 3600
+    }
+
+    const corsOptions = {
+      origin: 'http://localhost:8123',
+      optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    };
+
+    const csrfProtection = csrf({ cookie: cookieOptions });
+
+    this.app.use(cors(corsOptions));
+    this.app.use(cookieParser());
+    this.app.use(csrfProtection);
+
 
     //use router middleware
     this.app.use(router);
+
+    router.use(function (req, res, next) {
+      res.setHeader('Content-Type', 'application/json');
+      next();
+    });
+
+    //OfferRoute
+    OfferRoute.create(router, this.model);
+
+
   }
 }
