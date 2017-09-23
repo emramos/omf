@@ -7,7 +7,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class OfferService {
 
-  private offerUrl = 'http://localhost:8523/offer';
+  private offerUrl = '/api/offer';
 
   headers: Headers;
   options: RequestOptions;

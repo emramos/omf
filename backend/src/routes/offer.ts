@@ -6,14 +6,12 @@ import { IModel } from "../models/model"; //import IModel
 
 
 /**
- * / route
  *
- * @class User
+ * @class OfferRoute
  */
 export class OfferRoute extends BaseRoute {
 
   /**
-   * Create the routes.
    *
    * @class OfferRoute
    * @method create
@@ -23,15 +21,15 @@ export class OfferRoute extends BaseRoute {
 
     console.log("[OfferRoute::create] Creating offer route.");
 
-    router.get("/offer", (req: Request, res: Response, next: NextFunction) => {
+    router.get("/api/offer", (req: Request, res: Response, next: NextFunction) => {
       new OfferRoute().list(req, res, next, model);
     });
 
-    router.get('/offer/:id', (req: Request, res: Response, next: NextFunction) => {
+    router.get('/api/offer/:id', (req: Request, res: Response, next: NextFunction) => {
       new OfferRoute().show(req, res, next, model);
     });
 
-    router.post('/offer', (req: Request, res: Response, next: NextFunction) => {
+    router.post('/api/offer', (req: Request, res: Response, next: NextFunction) => {
       new OfferRoute().create(req, res, next, model);
     });
 

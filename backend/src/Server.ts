@@ -5,24 +5,24 @@ import * as logger from "morgan";
 import * as path from "path";
 import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
-import mongoose = require("mongoose"); //import mongoose
-
+import mongoose = require("mongoose");
+import csrf = require('csurf');
+import cors = require('cors');
 
 //routes
 import { OfferRoute } from "./routes/offer";
 
 //interfaces
-import { IOffer } from "./interfaces/offer"; //import IOffer
+import { IOffer } from "./interfaces/offer";
 
 //models
-import { IModel } from "./models/model"; //import IModel
-import { IOfferModel } from "./models/offer"; //import IOfferModel
+import { IModel } from "./models/model";
+import { IOfferModel } from "./models/offer";
 
 //schemas
-import { offerSchema } from "./schemas/offer"; //import userSchema
+import { offerSchema } from "./schemas/offer";
 
 /**
- * The server.
  *
  * @class Server
  */
@@ -46,7 +46,6 @@ export class Server {
   }
 
   /**
-   * Constructor.
    *
    * @class Server
    * @constructor
@@ -57,25 +56,15 @@ export class Server {
 
     this.model = Object(); //initialize this to an empty object
 
-    //configure application
     this.config();
 
-    //add routes
-    this.routes();
+    this.configDb();
 
-    //add api
-    this.api();
+    this.configCSRF();
+
+    this.configRoutes();
   }
 
-  /**
-   * Create REST API routes
-   *
-   * @class Server
-   * @method api
-   */
-  public api() {
-    //empty for now
-  }
 
   /**
    * Configure application
@@ -85,27 +74,22 @@ export class Server {
    */
   public config() {
 
-    const MONGODB_CONNECTION: string = "mongodb://omf_user:omf_user@localhost:27017/omf?authSource=admin";
-
     //add static paths
     this.app.use(express.static(path.join(__dirname, "public")));
 
     //use logger middlware
     this.app.use(logger("dev"));
 
-    //use json form parser middlware
-    this.app.use(bodyParser.json());
+    //use override middlware
+    this.app.use(methodOverride());
 
     //use query string parser middlware
     this.app.use(bodyParser.urlencoded({
-      extended: true
+      extended: false
     }));
 
-    //use cookie parker middleware middlware
-    this.app.use(cookieParser("SECRET_GOES_HERE"));
-
-    //use override middlware
-    this.app.use(methodOverride());
+    //use json form parser middlware
+    this.app.use(bodyParser.json());
 
     // Add headers
     this.app.use(function (req, res, next) {
@@ -127,17 +111,6 @@ export class Server {
         next();
     });
 
-    //use q promises
-    global.Promise = require("q").Promise;
-    mongoose.Promise = global.Promise;
-
-    //connect to mongoose
-    let connection: mongoose.Connection = mongoose.createConnection(MONGODB_CONNECTION);
-
-    //create models
-    this.model.offer = connection.model<IOfferModel>("Offer", offerSchema);
-
-
     //catch 404 and forward to error handler
     this.app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
         err.status = 404;
@@ -148,20 +121,58 @@ export class Server {
     this.app.use(errorHandler());
   }
 
+  private configDb() {
+    const MONGODB_CONNECTION: string = "mongodb://omf_user:omf_user@localhost:27017/omf?authSource=admin";
+
+    //use q promises
+    global.Promise = require("q").Promise;
+    mongoose.Promise = global.Promise;
+
+    //connect to mongoose
+    let connection: mongoose.Connection = mongoose.createConnection(MONGODB_CONNECTION);
+
+    //create models
+    this.model.offer = connection.model<IOfferModel>("Offer", offerSchema);
+  }
+
+  private configCSRF() {
+    const cookieOptions = {
+      key: 'XSRF-TOKEN',
+      secure: false,
+      httpOnly: false,
+      maxAge: 3600
+    }
+
+    const corsOptions = {
+      origin: 'http://localhost:8123',
+      optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    };
+
+    const csrfProtection = csrf({ cookie: cookieOptions });
+
+    this.app.use(cors(corsOptions));
+    this.app.use(cookieParser());
+    this.app.use(csrfProtection);
+
+  }
+
   /**
-   * Create router
    *
    * @class Server
    * @method api
    */
-  public routes() {
+  private configRoutes() {
     let router: express.Router;
     router = express.Router();
 
-    //OfferRoute
+    this.app.use(router);
+
+    router.use(function (req, res, next) {
+      res.setHeader('Content-Type', 'application/json');
+      next();
+    });
+
     OfferRoute.create(router, this.model);
 
-    //use router middleware
-    this.app.use(router);
   }
 }
