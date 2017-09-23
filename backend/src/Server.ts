@@ -60,7 +60,7 @@ export class Server {
 
     this.configDb();
 
-    this.configCSRF();
+    //this.configCSRF();
 
     this.configRoutes();
   }

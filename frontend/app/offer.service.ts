@@ -8,6 +8,7 @@ import 'rxjs/add/operator/toPromise';
 export class OfferService {
 
   private offerUrl = '/api/offer';
+  private orderUrl = '/api/order';
 
   headers: Headers;
   options: RequestOptions;
@@ -41,6 +42,19 @@ export class OfferService {
     console.log(offer);
 
     return this.http.post(this.offerUrl,
+                        JSON.stringify(offer),
+                        this.options
+                )
+               .toPromise()
+               .then(this.extractData)
+               .catch(this.handleError);
+  }
+
+  orderOffer(offer: Offer): Promise<any> {
+
+    console.log(offer);
+
+    return this.http.post(this.orderUrl,
                         JSON.stringify(offer),
                         this.options
                 )

@@ -25,7 +25,7 @@ export class OrderOfferFormComponent {
 
   onSubmit() {
     this.submitted = true;
-    //this.offerService.save(this.model).then(_ => this.router.navigate(['dashboard']));
+    this.offerService.orderOffer(this.offer).then(_ => this.router.navigate(['dashboard']));
   }
 
   ngOnInit() {
